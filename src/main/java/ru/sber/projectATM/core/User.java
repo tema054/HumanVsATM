@@ -4,6 +4,7 @@ import ru.sber.projectATM.core.abiliti.BalanceRequest;
 
 import java.math.BigInteger;
 import java.util.HashMap;
+import java.util.Optional;
 
 public class User implements BalanceRequest {
     private BigInteger pan;
@@ -28,13 +29,10 @@ public class User implements BalanceRequest {
     }
 
     @Override
-    public HashMap<String, String> getBalance() {
-        if (atm != null) {
-            atm.setPan(pan);
-            atm.setPin(pin);
-            return atm.getBalance();
-        }
-        return null;
+    public Optional<HashMap<String, String>> getBalance() {
+        atm.setPan(pan);
+        atm.setPin(pin);
+        return atm.getBalance();
         //todo: придумать как это сделать красивее
         //todo: обработку исключений
 

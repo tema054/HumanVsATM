@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Optional;
 
 public class ATM implements BalanceRequest {
     private BigInteger pan;
@@ -20,7 +21,7 @@ public class ATM implements BalanceRequest {
     }
 
     @Override
-    public HashMap<String, String> getBalance() {
+    public Optional<HashMap<String, String>> getBalance() {
         HashMap<String, String> balance = new HashMap<>();
         balance.put("availableAmount", null);
         balance.put("currency", null);
@@ -37,11 +38,11 @@ public class ATM implements BalanceRequest {
                 balance.put("availableAmount", String.valueOf(222.22));
                 balance.put("currency", "RUR");
                 balance.put("status", "success");
-                return balance;
+                return Optional.of(balance);
             }
         }
-        //todo: добавить инициацию исключений
         balance.put("status", "failed");
-        return balance;
+        return Optional.of(balance);
+        //todo: придумать как сделать по красоте
     }
 }
