@@ -1,48 +1,65 @@
 package ru.sber.projectATM.core;
 
-import ru.sber.projectATM.core.abiliti.BalanceRequest;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import ru.sber.projectATM.core.helperСlass.Handbook;
 
-import java.math.BigInteger;
-import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Optional;
 
-public class ATM implements BalanceRequest {
-    private BigInteger pan;
+@Slf4j
+public class ATM {
+    private static final String regexpPan = "^(\\d{4})(\\d{4,14}$)";
+    private static final String regexpPin = "^\\d{4,6}$";
+    //счётчик операций на банкомате
+    private static int authId = 0;
+    @Setter
+    private String pan;
+
+    @Setter
     private int pin;
 
-    public void setPan(BigInteger pan) {
-        this.pan = pan;
-    }
+    public BalanceRequest getBalance(String pan, int pin) {
+        authId++;
+        log.info(String.format("authId: %d pan %s pin %s", authId, pan, pin));
+        BalanceRequest balance = new BalanceRequest();
 
-    public void setPin(int pin) {
-        this.pin = pin;
-    }
-
-    @Override
-    public Optional<HashMap<String, String>> getBalance() {
-        HashMap<String, String> balance = new HashMap<>();
-        balance.put("availableAmount", null);
-        balance.put("currency", null);
-        balance.put("status", null);
-
-        String regexpPan = "^\\d{16,18}";
-        String regexpPin = "^\\d{4,6}";
         Pattern patternPan = Pattern.compile(regexpPan);
         Matcher matcherPan = patternPan.matcher(String.valueOf(pan));
-        Pattern patternPin = Pattern.compile(regexpPin);
-        Matcher matcherPin = patternPin.matcher(String.valueOf(pin));
+
         if (matcherPan.find()) {
-            if (matcherPin.find()) {
-                balance.put("availableAmount", String.valueOf(222.22));
-                balance.put("currency", "RUR");
-                balance.put("status", "success");
-                return Optional.of(balance);
+            log.info(String.format("authId: %d pan %s %s", authId, pan, "IsCorrect"));
+            /*пока условие немного притянуто за уши по позже можно сделать патерн сбольшим
+            количеством групп и по ним понимать что за продукт*/
+            if (matcherPan.group(1).matches("^[^2,4-6].*")) {
+                balance.setResponseСode("Not supported BIN");
+                balance.setStatus(Handbook.Status.FAILED);
+                log.info(String.format("authId: %d check BIN: %s ", authId, "Not supported BIN"));
+                return balance;
+            }
+            //todo:вынести логику обработки бинов на уровень сущности БАНК
+
+            log.info(String.format("authId: %d pan %s %s", authId, pan, "IsCorrect"));
+            if (String.valueOf(pin).matches(regexpPin)) {
+                balance.setAvailableAmount(22.22);
+                balance.setCurrency(Handbook.Currency.RUR);
+                balance.setStatus(Handbook.Status.SUCCESS);
+                balance.setResponseСode("0");
+                log.info(String.format("authId: %d pan %s ", authId, pan, balance.toString()));
+                return balance;
+            } else {
+                balance.setResponseСode("Invalid pin, try again");
+                balance.setStatus(Handbook.Status.FAILED);
+                log.info(String.format("authId: %d %s", authId, "Invalid pin, try again"));
+                return balance;
             }
         }
-        balance.put("status", "failed");
-        return Optional.of(balance);
-        //todo: придумать как сделать по красоте
+
+        balance.setResponseСode("Undefined Exception");
+        balance.setStatus(Handbook.Status.FAILED);
+        log.info(String.format("authId: %d %s", authId, "Undefined Exception"));
+
+        return balance;
     }
 }
+
