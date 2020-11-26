@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 @Slf4j
 public class ATM {
+    //выделить проверки в отдельные методы
     private static final String regexpPan = "^(\\d{4})(\\d{4,14}$)";
     private static final String regexpPin = "^\\d{4,6}$";
     //счётчик операций на банкомате

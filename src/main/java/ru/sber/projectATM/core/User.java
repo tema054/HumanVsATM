@@ -12,9 +12,8 @@ public class User {
     @Setter
     private int pin;
 
+    // переделать гет беленс
     public BalanceRequest getBalance(ATM atm) {
-        atm.setPan(pan);
-        atm.setPin(pin);
         return atm.getBalance(pan, pin);
 
     }
