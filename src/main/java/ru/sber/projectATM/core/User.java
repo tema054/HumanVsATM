@@ -4,12 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Setter;
 import ru.sber.projectATM.core.accounting.BalanceRequest;
 
-
+@Setter
 @AllArgsConstructor
 public class User {
-    @Setter
     private String pan;
-    @Setter
     private int pin;
 
     // переделать гет беленс

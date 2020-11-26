@@ -8,11 +8,8 @@ import lombok.ToString;
 @Setter
 public class BalanceRequest {
 
-
-    private Double availableAmount;
-    private Currency currency;
+    private Balance balance;
     private String responseСode;
     private Status status;
-
 
 }
