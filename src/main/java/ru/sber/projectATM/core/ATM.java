@@ -2,7 +2,9 @@ package ru.sber.projectATM.core;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import ru.sber.projectATM.core.helperСlass.Handbook;
+import ru.sber.projectATM.core.helperСlass.accounting.BalanceRequest;
+import ru.sber.projectATM.core.helperСlass.accounting.Currency;
+import ru.sber.projectATM.core.helperСlass.accounting.Status;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,7 +35,7 @@ public class ATM {
             количеством групп и по ним понимать что за продукт*/
             if (matcherPan.group(1).matches("^[^2,4-6].*")) {
                 balance.setResponseСode("Not supported BIN");
-                balance.setStatus(Handbook.Status.FAILED);
+                balance.setStatus(Status.FAILED);
                 log.info(String.format("authId: %d check BIN: %s ", authId, "Not supported BIN"));
                 return balance;
             }
@@ -42,21 +44,21 @@ public class ATM {
             log.info(String.format("authId: %d pan %s %s", authId, pan, "IsCorrect"));
             if (String.valueOf(pin).matches(regexpPin)) {
                 balance.setAvailableAmount(22.22);
-                balance.setCurrency(Handbook.Currency.RUR);
-                balance.setStatus(Handbook.Status.SUCCESS);
+                balance.setCurrency(Currency.RUR);
+                balance.setStatus(Status.SUCCESS);
                 balance.setResponseСode("0");
                 log.info(String.format("authId: %d pan %s ", authId, pan, balance.toString()));
                 return balance;
             } else {
                 balance.setResponseСode("Invalid pin, try again");
-                balance.setStatus(Handbook.Status.FAILED);
+                balance.setStatus(Status.FAILED);
                 log.info(String.format("authId: %d %s", authId, "Invalid pin, try again"));
                 return balance;
             }
         }
 
         balance.setResponseСode("Undefined Exception");
-        balance.setStatus(Handbook.Status.FAILED);
+        balance.setStatus(Status.FAILED);
         log.info(String.format("authId: %d %s", authId, "Undefined Exception"));
 
         return balance;

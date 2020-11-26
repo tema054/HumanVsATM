@@ -1,20 +1,17 @@
-package ru.sber.projectATM.core;
+package ru.sber.projectATM.core.helperСlass.accounting;
 
 import lombok.Setter;
 import lombok.ToString;
-import ru.sber.projectATM.core.helperСlass.Handbook.*;
 
 
 @ToString
+@Setter
 public class BalanceRequest {
 
-    @Setter
+
     private Double availableAmount;
-    @Setter
     private Currency currency;
-    @Setter
     private String responseСode;
-    @Setter
     private Status status;
 
 
