@@ -2,9 +2,9 @@ package ru.sber.projectATM.core;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import ru.sber.projectATM.core.helperСlass.accounting.BalanceRequest;
-import ru.sber.projectATM.core.helperСlass.accounting.Currency;
-import ru.sber.projectATM.core.helperСlass.accounting.Status;
+import ru.sber.projectATM.core.accounting.BalanceRequest;
+import ru.sber.projectATM.core.accounting.Currency;
+import ru.sber.projectATM.core.accounting.Status;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -1,4 +1,4 @@
-package ru.sber.projectATM.core.helperСlass.accounting;
+package ru.sber.projectATM.core.accounting;
 
 import lombok.Setter;
 import lombok.ToString;

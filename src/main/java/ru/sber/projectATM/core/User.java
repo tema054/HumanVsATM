@@ -2,7 +2,7 @@ package ru.sber.projectATM.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
-import ru.sber.projectATM.core.helperСlass.accounting.BalanceRequest;
+import ru.sber.projectATM.core.accounting.BalanceRequest;
 
 
 @AllArgsConstructor
