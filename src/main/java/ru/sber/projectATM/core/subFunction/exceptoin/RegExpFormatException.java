@@ -1,6 +1,4 @@
-package ru.sber.projectATM.core.exceptoin;
-
-import lombok.NoArgsConstructor;
+package ru.sber.projectATM.core.subFunction.exceptoin;
 
 
 public class RegExpFormatException extends Exception {

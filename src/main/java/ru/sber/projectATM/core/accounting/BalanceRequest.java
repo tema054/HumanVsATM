@@ -9,7 +9,6 @@ import lombok.ToString;
 public class BalanceRequest {
 
     private Balance balance;
-    private String responseСode;
-    private Status status;
+    private String RC;
 
 }

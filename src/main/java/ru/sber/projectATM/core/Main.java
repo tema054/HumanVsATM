@@ -1,5 +1,7 @@
 package ru.sber.projectATM.core;
 
+import ru.sber.projectATM.core.bank.ATM.ATM;
+
 public class Main {
     public static void main(String[] args) {
 
