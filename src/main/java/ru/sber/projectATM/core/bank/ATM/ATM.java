@@ -2,29 +2,35 @@ package ru.sber.projectATM.core.bank.ATM;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.sber.projectATM.core.accounting.BalanceRequest;
-import ru.sber.projectATM.core.bank.FrontSystem;
+import ru.sber.projectATM.core.bank.front.FrontSystem;
+import ru.sber.projectATM.core.handbook.Status;
 import ru.sber.projectATM.core.subFunction.UtilsForCard;
 
 @Slf4j
 public class ATM {
-    private FrontSystem =new
-    private static final String regexpPan = "^(\\d{4})(\\d{4,10})(\\d{4})$";
-    private static final String regexpPin = "^\\d{4,6}$";
+    private FrontSystem frontABS = new FrontSystem();
+
     //счётчик операций на банкомате
     private static int authId = 0;
 
-    FrontSystem();
-
     public BalanceRequest getBalance(String pan, int pin) {
         //счётчик авторизаций
-        authId++;
         BalanceRequest balance = new BalanceRequest();
-        String wrapPan;
-        UtilsForCard.regExpValidator(pan, regexpPan);
-        wrapPan = UtilsForCard.wrapPan(pan);
-        log.info(String.format("authId: %d pan %s %s", authId, wrapPan, "IsCorrect"));
-        UtilsForCard.regExpValidator(String.valueOf(pin), regexpPin);
-        log.info(String.format("authId: %d pan %s  %s ", authId, wrapPan, balance.toString()));
+        if (frontABS.checkConnect()) {
+            authId++;
+            String wrapPan;
+            //проверяем формат PAN
+            UtilsForCard.regExpValidator(pan, UtilsForCard.regexpPan);
+            //проверка PAN прошла успешна, маскируем значение
+            wrapPan = UtilsForCard.wrapPan(pan);
+            log.info(String.format("authId: %d pan %s %s", authId, wrapPan, "IsCorrect"));
+            //проверяем формат PIN
+            UtilsForCard.regExpValidator(String.valueOf(pin), UtilsForCard.regexpPin);
+            log.info(String.format("authId: %d pan %s  %s ", authId, wrapPan, balance.toString()));
+        } else {
+            balance.setRC(Status.FAILED);
+            balance.setDescriptionRC("checkConnect failed");
+        }
         return balance;
     }
 }

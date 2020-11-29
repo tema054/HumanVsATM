@@ -10,10 +10,10 @@ public class Main {
 
         System.out.println(user.getBalance(new ATM()).toString());
 
-        user.setPan("4111222233134444");
-
+        user.setPin(2222);
 
         System.out.println(user.getBalance(new ATM()).toString());
+        user.setPan("4111222233134444");
 
 
         user.setPin(2222);
