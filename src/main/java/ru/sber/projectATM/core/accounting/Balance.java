@@ -1,11 +1,12 @@
 package ru.sber.projectATM.core.accounting;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
+
 import ru.sber.projectATM.core.handbook.Currency;
 
-@Setter
+@AllArgsConstructor
 @Getter
 public class Balance {
     @NonNull
