@@ -12,7 +12,6 @@ public class RegExpValidator {
 
     public static final String regexpPan = "^(\\d{4})(\\d{4,10})(\\d{4})$";
     public static final String regexpPin = "^\\d{4,6}$";
-    private static Pattern patternPan = Pattern.compile("^(\\d{4})(\\d{4,10})(\\d{4})$");
 
     public static void validate(String value, String patternForValidate) {
         Pattern pattern = Pattern.compile(patternForValidate);
