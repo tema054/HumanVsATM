@@ -1,6 +1,5 @@
-package ru.sber.projectATM.core.accounting;
+package ru.sber.projectATM.core.bank.accounting;
 
-import lombok.Builder;
 import lombok.Setter;
 import lombok.ToString;
 import ru.sber.projectATM.core.handbook.Status;
@@ -8,11 +7,8 @@ import ru.sber.projectATM.core.handbook.Status;
 
 @ToString
 @Setter
-
 public class BalanceRequest {
-
     private Balance balance;
     private Status RC;
-    private String descriptionRC;
 
 }

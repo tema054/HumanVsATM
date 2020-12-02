@@ -1,4 +1,4 @@
-package ru.sber.projectATM.core.subFunction.exceptoin;
+package ru.sber.projectATM.core.bank.ATM.validate.exceptoin;
 
 
 public class RegExpFormatException extends Exception {

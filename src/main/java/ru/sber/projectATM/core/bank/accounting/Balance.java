@@ -1,4 +1,4 @@
-package ru.sber.projectATM.core.accounting;
+package ru.sber.projectATM.core.bank.accounting;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

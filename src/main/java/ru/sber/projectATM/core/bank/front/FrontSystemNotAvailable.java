@@ -1,9 +1,8 @@
-package ru.sber.projectATM.core.bank.ATM.exception;
+package ru.sber.projectATM.core.bank.front;
 
 public class FrontSystemNotAvailable extends Exception {
     public FrontSystemNotAvailable() {
     }
-
     public FrontSystemNotAvailable(String message) {
         super(message);
     }

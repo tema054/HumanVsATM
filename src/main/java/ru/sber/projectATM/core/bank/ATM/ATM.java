@@ -1,10 +1,12 @@
 package ru.sber.projectATM.core.bank.ATM;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.sber.projectATM.core.accounting.BalanceRequest;
+import ru.sber.projectATM.core.bank.ATM.validate.LogWrapper;
+import ru.sber.projectATM.core.bank.accounting.BalanceRequest;
 import ru.sber.projectATM.core.bank.front.FrontSystem;
+import ru.sber.projectATM.core.bank.front.FrontSystemNotAvailable;
 import ru.sber.projectATM.core.handbook.Status;
-import ru.sber.projectATM.core.subFunction.UtilsForCard;
+import ru.sber.projectATM.core.bank.ATM.validate.RegExpValidator;
 
 @Slf4j
 public class ATM {
@@ -16,20 +18,21 @@ public class ATM {
     public BalanceRequest getBalance(String pan, int pin) {
         //счётчик авторизаций
         BalanceRequest balance = new BalanceRequest();
-        if (frontABS.checkConnect()) {
+        try {
+            frontABS.checkConnect();
             authId++;
-            String wrapPan;
             //проверяем формат PAN
-            UtilsForCard.regExpValidator(pan, UtilsForCard.regexpPan);
+            RegExpValidator.validate(pan, RegExpValidator.regexpPan);
             //проверка PAN прошла успешна, маскируем значение
-            wrapPan = UtilsForCard.wrapPan(pan);
+            String wrapPan = LogWrapper.wrapPan(pan);
             log.info(String.format("authId: %d pan %s %s", authId, wrapPan, "IsCorrect"));
             //проверяем формат PIN
-            UtilsForCard.regExpValidator(String.valueOf(pin), UtilsForCard.regexpPin);
+            RegExpValidator.validate(String.valueOf(pin), RegExpValidator.regexpPin);
             log.info(String.format("authId: %d pan %s  %s ", authId, wrapPan, balance.toString()));
-        } else {
+            balance = frontABS.getBalance(pan, pin);
+        } catch (FrontSystemNotAvailable ex) {
+            log.info("АС не доступна");
             balance.setRC(Status.FAILED);
-            balance.setDescriptionRC("checkConnect failed");
         }
         return balance;
     }
