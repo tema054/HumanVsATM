@@ -6,7 +6,7 @@ import ru.sber.projectATM.core.handbook.Status;
 
 @ToString
 @Setter
-public class BalanceRequest {
+public class BalanceResponse {
     private Balance balance;
     private Status RC;
 }

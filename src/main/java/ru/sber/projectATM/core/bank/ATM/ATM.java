@@ -2,7 +2,7 @@ package ru.sber.projectATM.core.bank.ATM;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.sber.projectATM.core.bank.ATM.validate.LogWrapper;
-import ru.sber.projectATM.core.bank.accounting.BalanceRequest;
+import ru.sber.projectATM.core.bank.accounting.BalanceResponse;
 import ru.sber.projectATM.core.bank.front.FrontSystem;
 import ru.sber.projectATM.core.bank.front.FrontSystemNotAvailable;
 import ru.sber.projectATM.core.handbook.Status;
@@ -13,11 +13,11 @@ public class ATM {
     private FrontSystem frontABS = new FrontSystem();
 
     //счётчик операций на банкомате
-    private static int authId = 0;
+    private int authId = 0;
 
-    public BalanceRequest getBalance(String pan, int pin) {
+    public BalanceResponse getBalance(String pan, int pin) {
         //счётчик авторизаций
-        BalanceRequest balance = new BalanceRequest();
+        BalanceResponse balance = new BalanceResponse();
         try {
             frontABS.checkConnect();
             authId++;
