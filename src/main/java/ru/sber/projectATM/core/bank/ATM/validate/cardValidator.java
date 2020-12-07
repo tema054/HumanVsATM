@@ -8,14 +8,14 @@ import java.util.regex.Pattern;
 
 @Slf4j
 
-public class RegExpValidator {
+public class cardValidator {
 
     public static final String regexpPan = "^(\\d{4})(\\d{4,10})(\\d{4})$";
     public static final String regexpPin = "^\\d{4,6}$";
 
     public static void validate(String value, String patternForValidate) {
         Pattern pattern = Pattern.compile(patternForValidate);
-        Matcher matcherValue = pattern.matcher(String.valueOf(value));
+        Matcher matcherValue = pattern.matcher(value);
         if (!matcherValue.find()) {
             log.error(String.format("Значение %s не прошло вадидация %s", value, pattern), new RegExpFormatException());
         }

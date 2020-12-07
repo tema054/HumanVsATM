@@ -6,7 +6,7 @@ import ru.sber.projectATM.core.bank.accounting.BalanceResponse;
 import ru.sber.projectATM.core.bank.front.FrontSystem;
 import ru.sber.projectATM.core.bank.front.FrontSystemNotAvailable;
 import ru.sber.projectATM.core.handbook.Status;
-import ru.sber.projectATM.core.bank.ATM.validate.RegExpValidator;
+import ru.sber.projectATM.core.bank.ATM.validate.cardValidator;
 
 @Slf4j
 public class ATM {
@@ -22,12 +22,12 @@ public class ATM {
             frontABS.checkConnect();
             authId++;
             //проверяем формат PAN
-            RegExpValidator.validate(pan, RegExpValidator.regexpPan);
+            cardValidator.validate(pan, cardValidator.regexpPan);
             //проверка PAN прошла успешна, маскируем значение
             String wrapPan = LogWrapper.wrapPan(pan);
             log.info(String.format("authId: %d pan %s %s", authId, wrapPan, "IsCorrect"));
             //проверяем формат PIN
-            RegExpValidator.validate(String.valueOf(pin), RegExpValidator.regexpPin);
+            cardValidator.validate(String.valueOf(pin), cardValidator.regexpPin);
             log.info(String.format("authId: %d pan %s  %s ", authId, wrapPan, balance.toString()));
             balance = frontABS.getBalance(pan, pin);
         } catch (FrontSystemNotAvailable ex) {
