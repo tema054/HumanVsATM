@@ -10,6 +10,8 @@ import ru.sber.projectATM.core.bank.ATM.validate.cardValidator;
 
 @Slf4j
 public class ATM {
+
+
     private FrontSystem frontABS = new FrontSystem();
 
     //счётчик операций на банкомате
@@ -31,21 +33,14 @@ public class ATM {
             log.info(String.format("authId: %d pan %s  %s ", authId, wrapPan, balance.toString()));
             balance = frontABS.getBalance(pan, pin);
         } catch (FrontSystemNotAvailable ex) {
-            log.info("АС не доступна");
+
+            log.error(String.format("%s %s", "АС не доступна", ex.getMessage()));
             balance.setRC(Status.FAILED);
         }
         return balance;
     }
 }
-   /*пока условие немного притянуто за уши по позже можно сделать патерн сбольшим
-            количеством групп и по ним понимать что за продукт*/
-//            if (matcherPan.group(1).matches("^[^2,4-6].*")) {
-//                balance.setResponseСode("Not supported BIN");
-//                balance.setStatus(Status.FAILED);
-//                log.info(String.format("authId: %d check BIN: %s ", authId, "Not supported BIN"));
-//                return balance;
-//            }
-//todo:вынести логику обработки бинов на уровень сущности БАНК
+
 
 
 
