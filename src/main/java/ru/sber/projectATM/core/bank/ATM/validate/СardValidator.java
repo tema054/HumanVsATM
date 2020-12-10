@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 @Slf4j
 
-public class cardValidator {
+public class СardValidator {
 
     public static final String regexpPan = "^(\\d{4})(\\d{4,10})(\\d{4})$";
     public static final String regexpPin = "^\\d{4,6}$";
