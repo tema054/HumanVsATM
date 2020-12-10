@@ -8,6 +8,7 @@ import ru.sber.projectATM.core.handbook.Currency;
 
 @AllArgsConstructor
 @Getter
+
 public class Balance {
     @NonNull
     private Double amount;
