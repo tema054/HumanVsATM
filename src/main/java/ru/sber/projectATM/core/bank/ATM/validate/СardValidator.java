@@ -3,8 +3,11 @@ package ru.sber.projectATM.core.bank.ATM.validate;
 import lombok.extern.slf4j.Slf4j;
 import ru.sber.projectATM.core.bank.ATM.validate.exceptoin.RegExpFormatException;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.function.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 
@@ -19,6 +22,15 @@ public class СardValidator {
         if (!matcherValue.find()) {
             log.error(String.format("Значение %s не прошло вадидация %s", value, pattern), new RegExpFormatException());
         }
+    }
+
+    public static Predicate<String> validatePredicate(String pattern) {
+        return s -> s.matches(pattern);
+    }
+
+    //пример высосанный из пальца, но пока я не понимаю куда ещё прикрутить проверку
+    public static List<String> volatileListCard(List<String> listPan, Predicate<String> predicate) {
+        return listPan.stream().filter(predicate).collect(Collectors.toList());
     }
 
 }
