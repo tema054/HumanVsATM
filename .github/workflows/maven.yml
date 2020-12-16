@@ -22,5 +22,5 @@ jobs:
         java-version: '11.0.4'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-     - name: Build with sonar
-       run: mvn verify sonar:sonar
+    - name: Build with sonar
+      run: mvn verify sonar:sonar
