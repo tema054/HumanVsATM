@@ -24,15 +24,21 @@ class UserTest {
 
     @Test
     void setPan() {
-        User user = new User("1111222233334444", 1111);
+        User user = new User("1111222233334444", -1);
         Set<ConstraintViolation<User>> constraintViolations =
                 validator.validate(user);
-
-        // assertEquals( 0, constraintViolations.iterator().next().getMessage());
-        //assertEquals( 0, constraintViolations.iterator().next().getMessage());
+        assertEquals("должно быть не меньше 0", constraintViolations.iterator().next().getMessage());
+        User user2 = new User("1111222233334444", 10000);
+        constraintViolations = validator.validate(user2);
+        assertEquals("должно быть не больше 9999", constraintViolations.iterator().next().getExecutableReturnValue());
     }
 
     @Test
     void setPin() {
+        User user = new User("abs", -1);
+        Set<ConstraintViolation<User>> constraintViolations =
+                validator.validate(user);
+        //assertEquals( "должно быть не меньше 0", constraintViolations.iterator().next().);
+        //как проверить не понятно
     }
 }

@@ -14,6 +14,7 @@ import javax.validation.constraints.Pattern;
 public class User {
     @Pattern(regexp = "^(\\d{4})(\\d{4,10})(\\d{4})$")
     private String pan;
+    @Pattern(regexp = "^\\d{4,6}$")
     @Min(0000)
     @Max(9999)
     private int pin;
