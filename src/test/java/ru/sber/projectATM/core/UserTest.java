@@ -35,9 +35,7 @@ class UserTest {
 
     @Test
     void setPin() {
-        User user = new User("abs", -1);
-        Set<ConstraintViolation<User>> constraintViolations =
-                validator.validate(user);
+
         //assertEquals( "должно быть не меньше 0", constraintViolations.iterator().next().);
         //как проверить не понятно
     }
