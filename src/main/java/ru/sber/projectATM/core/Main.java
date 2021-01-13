@@ -17,12 +17,12 @@ public class Main {
 
         User user = context.getBean("user", User.class);
         ATM atm = context.getBean("ATM", ATM.class);
-//
         System.out.println(user.getBalance(atm).toString());
 
 
 
-        /*User user = new User("1111222233134444", -1);
+        /*
+        User user = new User("1111222233134444", -1);
         System.out.println(user.getBalance(new ATM()).toString());
         user.setPin(2222);
         System.out.println(user.getBalance(new ATM()).toString());
@@ -34,7 +34,8 @@ public class Main {
         cardList.add("4111222233134444");
         cardList.add("adasd444");
         //пример высосанный из пальца, но пока я не понимаю куда ещё прикрутить проверку
-        System.out.println(СardValidator.volatileListCard(cardList, СardValidator.validatePredicate(СardValidator.regexpPan)));*/
+        System.out.println(СardValidator.volatileListCard(cardList, СardValidator.validatePredicate(СardValidator.regexpPan)));
+        */
 
     }
 }
