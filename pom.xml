@@ -3,7 +3,6 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>ru.sber.projectATM</groupId>
     <artifactId>balanceResponse</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -13,9 +12,25 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.projectKey>tema054_HumanVsATM</sonar.projectKey>
         <sonar.organization>tema054</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>             
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <mainClass>ru.sber.projectATM.core.Main</mainClass>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>5.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>5.3.2</version>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

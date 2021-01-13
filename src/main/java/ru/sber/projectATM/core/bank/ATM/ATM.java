@@ -1,6 +1,7 @@
 package ru.sber.projectATM.core.bank.ATM;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import ru.sber.projectATM.core.bank.ATM.validate.LogWrapper;
 import ru.sber.projectATM.core.bank.accounting.BalanceResponse;
 import ru.sber.projectATM.core.bank.front.FrontSystem;
@@ -12,6 +13,7 @@ import java.util.function.*;
 
 
 @Slf4j
+@Component("ATM")
 public class ATM {
 
 
