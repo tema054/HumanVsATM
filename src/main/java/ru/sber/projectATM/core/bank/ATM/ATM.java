@@ -33,12 +33,12 @@ public class ATM {
             frontABS.checkConnect();
             authId++;
             //проверяем формат PAN
-            СardValidator.validate(pan, СardValidator.regexpPan);
+            //СardValidator.validate(pan, СardValidator.regexpPan);
             //проверка PAN прошла успешна, маскируем значение
             String wrapPan = LogWrapper.wrapPan(pan);
             log.info(String.format("authId: %d pan %s %s", authId, wrapPan, "IsCorrect"));
             //проверяем формат PIN
-            СardValidator.validate(String.valueOf(pin), СardValidator.regexpPin);
+            //СardValidator.validate(String.valueOf(pin), СardValidator.regexpPin);
 
             balance = frontABS.getBalance(pan, pin);
             log.info(String.format("authId: %d pan %s  %s ", authId, wrapPan, balance.toString()));
