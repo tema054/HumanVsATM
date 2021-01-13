@@ -9,6 +9,8 @@ import ru.sber.projectATM.core.bank.accounting.DefaultAccount;
 import ru.sber.projectATM.core.handbook.Currency;
 import ru.sber.projectATM.core.handbook.Status;
 
+import java.util.ArrayList;
+
 
 @Getter
 @Setter
