@@ -5,10 +5,13 @@ import lombok.*;
 import ru.sber.projectATM.common.handbook.*;
 
 
-@Value
 @ToString
-public class Balance implements java.io.Serializable {
+@Value
+
+public class Balance {
+    @NonNull
     private Double amount;
+    @NonNull
     private Currency currency;
 
 }

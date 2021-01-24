@@ -78,12 +78,13 @@ public class controllerATM {
             RestTemplate restTemplate = new RestTemplate();
             HttpEntity<Request> request = new HttpEntity<>(new Request(1, pan, pin));
 
-            ResponseEntity<Balance> responseEntity = restTemplate.
-                    postForEntity("http://127.0.0.1:8090/bank/1/getBalance/", request, Balance.class);
+            ResponseEntity<String> responseEntity = restTemplate.
+                    postForEntity("http://127.0.0.1:8090/bank/1/getBalance/", request, String.class);
 
             //   Balance balance = restTemplate.postForObject("http://127.0.0.1:8090/bank/1/getBalance/" , request, Balance.class);
 
             log.info(String.format("authId: %d pan %s  %s ", authId, wrapPan, balance.toString()));
+            // log.info(balance.toString());
             log.info(responseEntity.getBody().toString());
 
         } catch (Exception ex) {//FrontSystemNotAvailable

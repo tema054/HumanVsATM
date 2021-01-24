@@ -13,9 +13,9 @@ import ru.sber.projectATM.common.handbook.*;
 @AllArgsConstructor
 public class BalanceDTO {
     @NonNull
-    private Balance amount;
+    private Balance balance;
     @NonNull
-    private Status currency;
+    private Status status;
 
 
 }
