@@ -1,8 +1,14 @@
-package ru.sber.projectATM.bank;
+package ru.sber.projectATM.bank.exception;
 
-public class FrontSystemNotAvailable extends Exception {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+//често украденный класс
+@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+public class FrontSystemNotAvailable extends RuntimeException {
     public FrontSystemNotAvailable() {
     }
+
     public FrontSystemNotAvailable(String message) {
         super(message);
     }

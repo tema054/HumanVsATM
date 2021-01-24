@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import ru.sber.projectATM.AutomatedTellerMachine.dto.BalanceDTO;
 import ru.sber.projectATM.AutomatedTellerMachine.exception.ATMInternalErrorException;
 import ru.sber.projectATM.AutomatedTellerMachine.service.ATMService;
 import ru.sber.projectATM.AutomatedTellerMachine.validate.*;
@@ -16,6 +17,7 @@ import ru.sber.projectATM.common.*;
 
 
 import ru.sber.projectATM.common.handbook.*;
+import ru.sber.projectATM.common.handbook.Currency;
 
 
 import javax.validation.constraints.Max;
@@ -35,12 +37,20 @@ public class controllerATM {
     //счётчик операций на банкомате
     private int authId = 0;
 
-    private Supplier<BalanceResponse> supplierBalanceResponse() {
-        return () -> new BalanceResponse();
+    Balance balance = supplierBalanceResponse().get();
+
+    private Supplier<Balance> supplierBalanceResponse() {
+        return () -> new Balance(0d, Currency.RUR);
     }
 
-    @GetMapping({"/pan/{PAN}/pin/{PIN}", "/pan/{PAN}/pin/{PIN}/ATM/{id}"})
-    public BalanceResponse getBalance(
+    @GetMapping({"atm/"})
+    public String getBalance() {
+        return "ATM ready";
+    }
+
+    //http://127.0.0.1:8080/atm/pan/4321123412344321/pin/0000
+    @GetMapping({"atm/pan/{PAN}/pin/{PIN}", "atm/pan/{PAN}/pin/{PIN}/ATM/{id}"})
+    public BalanceDTO getBalance(
             @Pattern(regexp = "^(\\d{4})(\\d{4,10})(\\d{4})$")
             @PathVariable("PAN") String pan,
 
@@ -61,32 +71,26 @@ public class controllerATM {
         try {
             //  frontABS.checkConnect();
             authId++;
-            //проверяем формат PAN
-            //СardValidator.validate(pan, СardValidator.regexpPan);
-            //проверка PAN прошла успешна, маскируем значение
+
             String wrapPan = LogWrapper.wrapPan(pan);
             log.info(String.format("authId: %d pan %s %s", authId, wrapPan, "IsCorrect"));
-            //проверяем формат PIN
-            //СardValidator.validate(String.valueOf(pin), СardValidator.regexpPin);
-            //  balance = frontABS.getBalance(pan, pin);
 
             RestTemplate restTemplate = new RestTemplate();
             HttpEntity<Request> request = new HttpEntity<>(new Request(1, pan, pin));
 
+            ResponseEntity<Balance> responseEntity = restTemplate.
+                    postForEntity("http://127.0.0.1:8090/bank/1/getBalance/", request, Balance.class);
 
-            ResponseEntity<String> responseEntityStr = restTemplate.
-                    postForEntity("http://127.0.0.1:8080/hosts/1/clients/" + clientId,
-                            request, String.class);
+            //   Balance balance = restTemplate.postForObject("http://127.0.0.1:8090/bank/1/getBalance/" , request, Balance.class);
 
-            BalanceResponse balance = supplierBalanceResponse().get();
             log.info(String.format("authId: %d pan %s  %s ", authId, wrapPan, balance.toString()));
+            log.info(responseEntity.getBody().toString());
 
         } catch (Exception ex) {//FrontSystemNotAvailable
-            log.error(String.format("%s %s", "АС не доступна", ex.getMessage()));
-            //todo: сделать частью шаблона
-            balance.setRC(Status.FAILED);
+            log.error(String.format("%s %s", "Ошибка при обращении", ex.getMessage()));
+            throw ex;
         }
-        return balance;
+        return atmService.getClientBalance(balance, Status.SUCCESS);
     }
 }
 

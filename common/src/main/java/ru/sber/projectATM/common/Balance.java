@@ -1,15 +1,14 @@
 package ru.sber.projectATM.common;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 
-import lombok.ToString;
 import ru.sber.projectATM.common.handbook.*;
 
-@AllArgsConstructor
+
 @Getter
+@Setter
 @ToString
+@AllArgsConstructor
 public class Balance {
     @NonNull
     private Double amount;
