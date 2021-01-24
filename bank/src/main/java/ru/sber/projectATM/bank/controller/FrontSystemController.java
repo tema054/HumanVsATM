@@ -32,7 +32,7 @@ public class FrontSystemController {
     @PostMapping({"bank/1/getBalance/"})
     public Balance getBalance(@RequestBody Request request) {
 
-        log.info(String.format("%s %s %d", "use method getBalance", request.getPAN(), request.getPIN()));
+        log.info(String.format("%s ", "use method getBalance", request.toString()));
         DefaultAccount defaultAccount = new DefaultAccount(2, request.getPAN(), new Balance(100.00, Currency.RUR));
         Client<DefaultAccount> defaultAccountClient = new Client<DefaultAccount>(2, defaultAccount);
         log.info(String.format("%s %s ", "getBalance return getBalane  ", defaultAccountClient.getAccount().getDefaultBalance().toString()));

@@ -5,10 +5,8 @@ import lombok.*;
 import ru.sber.projectATM.common.handbook.*;
 
 
-@Getter
-@Setter
 @ToString
-@AllArgsConstructor
+@Value
 public class Balance {
     @NonNull
     private Double amount;
