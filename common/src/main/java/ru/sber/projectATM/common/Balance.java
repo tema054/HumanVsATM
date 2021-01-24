@@ -5,12 +5,10 @@ import lombok.*;
 import ru.sber.projectATM.common.handbook.*;
 
 
-@ToString
 @Value
+@ToString
 public class Balance {
-    @NonNull
     private Double amount;
-    @NonNull
     private Currency currency;
 
 }

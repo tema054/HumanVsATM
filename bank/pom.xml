@@ -17,6 +17,7 @@
             <groupId>ru.sber.projectATM</groupId>
             <version>${project.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -27,4 +28,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
