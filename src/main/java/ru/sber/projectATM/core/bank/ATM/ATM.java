@@ -1,6 +1,7 @@
 package ru.sber.projectATM.core.bank.ATM;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import ru.sber.projectATM.core.bank.ATM.validate.LogWrapper;
 import ru.sber.projectATM.core.bank.accounting.BalanceResponse;
 import ru.sber.projectATM.core.bank.front.FrontSystem;
@@ -12,6 +13,7 @@ import java.util.function.*;
 
 
 @Slf4j
+@Component("ATM")
 public class ATM {
 
 
@@ -31,12 +33,12 @@ public class ATM {
             frontABS.checkConnect();
             authId++;
             //проверяем формат PAN
-            СardValidator.validate(pan, СardValidator.regexpPan);
+            //СardValidator.validate(pan, СardValidator.regexpPan);
             //проверка PAN прошла успешна, маскируем значение
             String wrapPan = LogWrapper.wrapPan(pan);
             log.info(String.format("authId: %d pan %s %s", authId, wrapPan, "IsCorrect"));
             //проверяем формат PIN
-            СardValidator.validate(String.valueOf(pin), СardValidator.regexpPin);
+            //СardValidator.validate(String.valueOf(pin), СardValidator.regexpPin);
 
             balance = frontABS.getBalance(pan, pin);
             log.info(String.format("authId: %d pan %s  %s ", authId, wrapPan, balance.toString()));
